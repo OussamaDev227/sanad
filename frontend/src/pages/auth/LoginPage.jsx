@@ -100,10 +100,10 @@ export default function LoginPage() {
 // ── Shared Auth Layout ────────────────────────────────────────────────
 export function AuthLayout({ children }) {
   const { i18n } = useTranslation()
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992)
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 992)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -112,43 +112,68 @@ export function AuthLayout({ children }) {
     <div style={{
       minHeight: '100dvh',
       display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
       background: 'var(--gray-50)',
       fontFamily: i18n.language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif",
     }}>
       {/* Left panel — branding */}
-      <div style={{
-        width: '45%', background: 'var(--primary-900)',
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        padding: 48,
-      }} className="hidden md:flex">
+      {!isMobile && (
+        <div style={{
+          width: '45%', background: 'var(--primary-900)',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: 48,
+        }}>
+          <img
+            src={appLogo}
+            alt="SANAD logo"
+            style={{ width: 72, height: 72, borderRadius: 18, objectFit: 'cover', marginBottom: 24 }}
+          />
+          <div style={{ color: '#fff', fontSize: 32, fontWeight: 800, marginBottom: 8 }}>SANAD</div>
+          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 15, marginBottom: 40 }}>منصة جامعي</div>
+          {['الخدمات الأكاديمية', 'خدمات الاستقرار', 'خدمات الرفاهية'].map((item, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
+              <span style={{ width: 20, height: 20, borderRadius: '50%', background: 'var(--accent-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: 'var(--accent-800)', fontWeight: 700 }}>✓</span>
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {isMobile && (
+        <div style={{
+          background: 'var(--primary-900)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '14px 16px',
+        }}>
         <img
           src={appLogo}
           alt="SANAD logo"
-          style={{ width: 72, height: 72, borderRadius: 18, objectFit: 'cover', marginBottom: 24 }}
+          style={{ width: 38, height: 38, borderRadius: 10, objectFit: 'cover' }}
         />
-        <div style={{ color: '#fff', fontSize: 32, fontWeight: 800, marginBottom: 8 }}>SANAD</div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 15, marginBottom: 40 }}>منصة جامعي</div>
-        {['الخدمات الأكاديمية', 'خدمات الاستقرار', 'خدمات الرفاهية'].map((item, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
-            <span style={{ width: 20, height: 20, borderRadius: '50%', background: 'var(--accent-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: 'var(--accent-800)', fontWeight: 700 }}>✓</span>
-            {item}
-          </div>
-        ))}
+        <div>
+          <div style={{ color: '#fff', fontSize: 19, fontWeight: 700 }}>SANAD</div>
+          <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11 }}>{i18n.language === 'ar' ? 'منصة جامعي' : 'Plateforme universitaire'}</div>
+        </div>
       </div>
+      )}
 
       {/* Right panel — form */}
       <div style={{ flex: 1, display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'center', padding: isMobile ? '18px 14px' : 32, overflowY: 'auto' }}>
         <div style={{ width: '100%', maxWidth: 420, paddingBottom: isMobile ? 18 : 0 }}>
           {/* Logo on mobile */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: isMobile ? 22 : 36 }}>
-            <img
-              src={appLogo}
-              alt="SANAD logo"
-              style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover' }}
-            />
-            <span style={{ fontSize: 18, fontWeight: 700, color: 'var(--primary-900)' }}>SANAD</span>
-          </div>
+          {!isMobile && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 }}>
+              <img
+                src={appLogo}
+                alt="SANAD logo"
+                style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover' }}
+              />
+              <span style={{ fontSize: 18, fontWeight: 700, color: 'var(--primary-900)' }}>SANAD</span>
+            </div>
+          )}
           {children}
         </div>
       </div>

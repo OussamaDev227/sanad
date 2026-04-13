@@ -1,10 +1,13 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { setLanguage } from '../i18n/index.js'
+import appLogo from '../assets/WhatsApp Image 2026-04-12 at 11.11.44.jpeg'
 
 export default function LandingPage() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   const features = [
     { icon: '📚', key: 'academic' },
@@ -12,12 +15,18 @@ export default function LandingPage() {
     { icon: '🚌', key: 'welfare' },
   ]
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--primary-900)', fontFamily: i18n.language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif" }}>
       {/* Nav */}
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 40px', borderBottom: '0.5px solid rgba(255,255,255,0.1)' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', padding: isMobile ? '14px 16px' : '20px 40px', borderBottom: '0.5px solid rgba(255,255,255,0.1)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: 'var(--accent-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 800, color: 'var(--accent-800)' }}>س</div>
+          <img src={appLogo} alt="SANAD logo" style={{ width: 40, height: 40, borderRadius: 10, objectFit: 'cover' }} />
           <div>
             <div style={{ color: '#fff', fontSize: 18, fontWeight: 700 }}>SANAD</div>
             <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: 11 }}>{t('app.subtitle')}</div>
@@ -38,14 +47,14 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <div style={{ textAlign: 'center', padding: '80px 40px 60px', maxWidth: 700, margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', padding: isMobile ? '44px 16px 36px' : '80px 40px 60px', maxWidth: 700, margin: '0 auto' }}>
         <div style={{ display: 'inline-block', background: 'rgba(239,159,39,0.15)', border: '0.5px solid rgba(239,159,39,0.3)', borderRadius: 20, padding: '5px 14px', fontSize: 12, color: 'var(--accent-100)', marginBottom: 24 }}>
           منصة جامعي #1 في الجزائر
         </div>
-        <h1 style={{ fontSize: 52, fontWeight: 800, color: '#fff', lineHeight: 1.2, marginBottom: 20 }}>
+        <h1 style={{ fontSize: isMobile ? 34 : 52, fontWeight: 800, color: '#fff', lineHeight: 1.2, marginBottom: 20 }}>
           {t('app.name')} <span style={{ color: 'var(--accent-400)' }}>سند</span>
         </h1>
-        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.6)', marginBottom: 36, lineHeight: 1.7 }}>
+        <p style={{ fontSize: isMobile ? 15 : 18, color: 'rgba(255,255,255,0.6)', marginBottom: 36, lineHeight: 1.7 }}>
           {t('app.tagline')}
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -59,7 +68,7 @@ export default function LandingPage() {
       </div>
 
       {/* Feature cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, maxWidth: 900, margin: '0 auto 60px', padding: '0 40px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 16, maxWidth: 900, margin: '0 auto 60px', padding: isMobile ? '0 16px' : '0 40px' }}>
         {features.map(f => (
           <div key={f.key} style={{ background: 'rgba(255,255,255,0.05)', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: 24 }}>
             <div style={{ fontSize: 32, marginBottom: 12 }}>{f.icon}</div>
@@ -70,7 +79,7 @@ export default function LandingPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 48, padding: '30px 40px', borderTop: '0.5px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 24 : 48, padding: isMobile ? '24px 16px' : '30px 40px', borderTop: '0.5px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
         {[
           { val: '+1,200', label: 'طالب مسجل' },
           { val: '24', label: 'خدمة متاحة' },

@@ -22,6 +22,7 @@ export default function RequestsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [filter, setFilter] = useState('all')
+  const isMobile = window.innerWidth < 992
 
   const filtered = filter === 'all' ? MOCK_REQUESTS : MOCK_REQUESTS.filter(r => r.status === filter)
 
@@ -46,7 +47,7 @@ export default function RequestsPage() {
         ))}
         <button
           className="btn-primary"
-          style={{ marginRight: 'auto', fontSize: 12, padding: '7px 14px' }}
+          style={{ marginRight: 'auto', fontSize: 12, padding: '7px 14px', width: isMobile ? '100%' : 'auto' }}
           onClick={() => navigate('/services')}
         >+ طلب جديد</button>
       </div>
@@ -54,9 +55,9 @@ export default function RequestsPage() {
       {filtered.length === 0 ? (
         <EmptyState icon="📭" title={t('requests.no_requests')} subtitle="تصفح الخدمات لتقديم طلب جديد" />
       ) : (
-        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="card" style={{ padding: 0, overflowX: 'auto' }}>
           {/* Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 100px', gap: 12, padding: '12px 16px', borderBottom: '0.5px solid var(--gray-100)', fontSize: 12, fontWeight: 600, color: 'var(--gray-400)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 100px', gap: 12, padding: '12px 16px', borderBottom: '0.5px solid var(--gray-100)', fontSize: 12, fontWeight: 600, color: 'var(--gray-400)', minWidth: 700 }}>
             <span>الخدمة</span>
             <span>الفئة</span>
             <span>السعر</span>
@@ -75,6 +76,7 @@ export default function RequestsPage() {
                   gap: 12,
                   padding: '14px 16px',
                   alignItems: 'center',
+                  minWidth: 700,
                   borderBottom: i < filtered.length - 1 ? '0.5px solid var(--gray-50)' : 'none',
                   cursor: 'pointer',
                 }}

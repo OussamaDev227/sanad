@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/index.js'
+import appLogo from '../../assets/WhatsApp Image 2026-04-12 at 11.11.44.jpeg'
 
 const navItems = [
   { key: 'dashboard', path: '/dashboard', icon: '⊞' },
@@ -38,13 +39,17 @@ export default function Sidebar({ open }) {
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 py-5" style={{ borderBottom: '0.5px solid rgba(255,255,255,0.1)' }}>
-        <div style={{
-          width: 38, height: 38, borderRadius: 10,
-          background: 'var(--accent-400)', display: 'flex',
-          alignItems: 'center', justifyContent: 'center',
-          fontSize: 18, fontWeight: 800, color: 'var(--accent-800)',
-          flexShrink: 0
-        }}>س</div>
+        <img
+          src={appLogo}
+          alt="SANAD logo"
+          style={{
+            width: 38,
+            height: 38,
+            borderRadius: 10,
+            objectFit: 'cover',
+            flexShrink: 0,
+          }}
+        />
         <div>
           <div style={{ color: '#fff', fontSize: 17, fontWeight: 700 }}>SANAD</div>
           <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: 11 }}>{t('app.subtitle')}</div>

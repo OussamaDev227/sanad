@@ -7,6 +7,7 @@ import { ServiceCard, EmptyState, Spinner } from '../components/ui/index.jsx'
 export default function ServicesPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [services, setServices] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,6 +24,12 @@ export default function ServicesPage() {
     if (sortBy === 'price_asc') return 'price'
     return '-created_at'
   }, [sortBy])
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     let mounted = true
@@ -96,14 +103,14 @@ export default function ServicesPage() {
       <div className="card" style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 20, flexWrap: 'wrap' }}>
         <input
           className="form-input"
-          style={{ flex: 1, minWidth: 200 }}
+          style={{ flex: 1, minWidth: isMobile ? '100%' : 200 }}
           placeholder={t('services.search_placeholder')}
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
         <select
           className="form-input"
-          style={{ width: 160 }}
+          style={{ width: isMobile ? '100%' : 160 }}
           value={category}
           onChange={e => {
             setCategory(e.target.value)
@@ -117,7 +124,7 @@ export default function ServicesPage() {
         </select>
         <select
           className="form-input"
-          style={{ width: 140 }}
+          style={{ width: isMobile ? '100%' : 140 }}
           value={sortBy}
           onChange={e => {
             setSortBy(e.target.value)
@@ -128,7 +135,7 @@ export default function ServicesPage() {
           <option value="rating">{t('services.sort_rating')}</option>
           <option value="price_asc">{t('services.sort_price_low')}</option>
         </select>
-        <button className="btn-primary" style={{ whiteSpace: 'nowrap', padding: '9px 18px' }} onClick={() => setPage(1)}>
+        <button className="btn-primary" style={{ whiteSpace: 'nowrap', padding: '9px 18px', width: isMobile ? '100%' : 'auto' }} onClick={() => setPage(1)}>
           {t('services.search_btn')}
         </button>
       </div>
@@ -154,7 +161,7 @@ export default function ServicesPage() {
       ) : services.length === 0 ? (
         <EmptyState icon="🔍" title={t('services.no_results')} subtitle={t('services.search_hint')} />
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: 14 }}>
           {services.map(svc => (
             <ServiceCard
               key={svc.id}

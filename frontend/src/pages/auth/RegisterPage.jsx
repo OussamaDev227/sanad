@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm_password: '', role: 'student' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const isMobile = window.innerWidth < 768
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -60,7 +61,7 @@ export default function RegisterPage() {
           <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 5 }}>{t('auth.email')}</label>
           <input className="form-input" type="email" placeholder={t('auth.email_placeholder')} value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 10, marginBottom: 14 }}>
           <div>
             <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 5 }}>{t('auth.password')}</label>
             <input className="form-input" type="password" placeholder="••••••••" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />

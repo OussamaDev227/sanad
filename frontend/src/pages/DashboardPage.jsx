@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../store/index.js'
@@ -48,6 +49,13 @@ export default function DashboardPage() {
   const { t } = useTranslation()
   const { user } = useAuthStore()
   const navigate = useNavigate()
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 992)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const statusColors = {
     active: { bg: 'var(--teal-50)', color: 'var(--teal-600)' },
@@ -62,11 +70,13 @@ export default function DashboardPage() {
       <div style={{
         background: 'linear-gradient(135deg, var(--primary-900) 0%, var(--primary-600) 100%)',
         borderRadius: 'var(--radius-xl)',
-        padding: '24px 28px',
+        padding: isMobile ? '16px' : '24px 28px',
         marginBottom: 24,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: isMobile ? 'flex-start' : 'center',
         justifyContent: 'space-between',
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? 12 : 0,
         position: 'relative',
         overflow: 'hidden',
       }}>
@@ -85,7 +95,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
         <StatCard label={t('dashboard.active_requests')} value="3" change="2 هذا الأسبوع" changeType="up" />
         <StatCard label={t('dashboard.available_services')} value="24" change="5 جديدة" changeType="up" />
         <StatCard label={t('dashboard.total_requests')} value="11" change="مكتملة" changeType="up" />
@@ -94,7 +104,7 @@ export default function DashboardPage() {
 
       {/* Categories */}
       <SectionHeader title={t('dashboard.categories_title')} action={t('dashboard.see_all')} onAction={() => navigate('/services')} />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 14, marginBottom: 24 }}>
         {CATEGORIES.map(cat => (
           <div
             key={cat.key}
@@ -118,7 +128,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent services + Quick access */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 14 }}>
         {/* Recent services */}
         <div>
           <SectionHeader title={t('dashboard.recent_services')} action={t('dashboard.see_all')} onAction={() => navigate('/services')} />

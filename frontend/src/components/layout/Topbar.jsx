@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore, useUIStore } from '../../store/index.js'
 import { setLanguage } from '../../i18n/index.js'
 
-export default function Topbar({ onToggleSidebar, title }) {
+export default function Topbar({ onToggleSidebar, title, isMobile = false }) {
   const { t, i18n } = useTranslation()
   const { user, logout } = useAuthStore()
   const { notifications, markRead } = useUIStore()
@@ -34,19 +34,19 @@ export default function Topbar({ onToggleSidebar, title }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 24px',
+      padding: isMobile ? '0 12px' : '0 24px',
       position: 'sticky',
       top: 0,
       zIndex: 20,
     }}>
       {/* Left */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3" style={{ minWidth: 0 }}>
         <button
           onClick={onToggleSidebar}
           style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, color: 'var(--gray-600)', padding: '4px 6px', borderRadius: 6 }}
         >☰</button>
-        <div>
-          <h1 style={{ fontSize: 15, fontWeight: 600, color: '#1a1a18' }}>{title}</h1>
+        <div style={{ minWidth: 0 }}>
+          <h1 style={{ fontSize: isMobile ? 13 : 15, fontWeight: 600, color: '#1a1a18', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: isMobile ? 160 : 'none' }}>{title}</h1>
         </div>
       </div>
 

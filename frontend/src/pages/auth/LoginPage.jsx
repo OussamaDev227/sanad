@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/index.js'
 import { authAPI } from '../../services/api.js'
 import { setLanguage } from '../../i18n/index.js'
+import appLogo from '../../assets/WhatsApp Image 2026-04-12 at 11.11.44.jpeg'
 
 export default function LoginPage() {
   const { t, i18n } = useTranslation()
@@ -99,6 +100,14 @@ export default function LoginPage() {
 // ── Shared Auth Layout ────────────────────────────────────────────────
 export function AuthLayout({ children }) {
   const { i18n } = useTranslation()
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -113,7 +122,11 @@ export function AuthLayout({ children }) {
         alignItems: 'center', justifyContent: 'center',
         padding: 48,
       }} className="hidden md:flex">
-        <div style={{ width: 72, height: 72, borderRadius: 18, background: 'var(--accent-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, fontWeight: 800, color: 'var(--accent-800)', marginBottom: 24 }}>س</div>
+        <img
+          src={appLogo}
+          alt="SANAD logo"
+          style={{ width: 72, height: 72, borderRadius: 18, objectFit: 'cover', marginBottom: 24 }}
+        />
         <div style={{ color: '#fff', fontSize: 32, fontWeight: 800, marginBottom: 8 }}>SANAD</div>
         <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 15, marginBottom: 40 }}>منصة جامعي</div>
         {['الخدمات الأكاديمية', 'خدمات الاستقرار', 'خدمات الرفاهية'].map((item, i) => (
@@ -125,11 +138,15 @@ export function AuthLayout({ children }) {
       </div>
 
       {/* Right panel — form */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 32 }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: isMobile ? 16 : 32 }}>
         <div style={{ width: '100%', maxWidth: 420 }}>
           {/* Logo on mobile */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--primary-900)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 800, color: 'var(--accent-400)' }}>س</div>
+            <img
+              src={appLogo}
+              alt="SANAD logo"
+              style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover' }}
+            />
             <span style={{ fontSize: 18, fontWeight: 700, color: 'var(--primary-900)' }}>SANAD</span>
           </div>
           {children}

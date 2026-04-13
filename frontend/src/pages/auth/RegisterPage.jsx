@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/index.js'
@@ -12,7 +12,13 @@ export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm_password: '', role: 'student' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const isMobile = window.innerWidth < 768
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -42,7 +48,7 @@ export default function RegisterPage() {
   return (
     <AuthLayout>
       <div style={{ marginBottom: 28 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 6 }}>{t('auth.create_account')}</h2>
+        <h2 style={{ fontSize: isMobile ? 22 : 24, fontWeight: 800, marginBottom: 6 }}>{t('auth.create_account')}</h2>
         <p style={{ fontSize: 13, color: 'var(--gray-400)' }}>انضم إلى آلاف الطلاب والأساتذة</p>
       </div>
 

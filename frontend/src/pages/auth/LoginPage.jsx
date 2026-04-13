@@ -110,7 +110,7 @@ export function AuthLayout({ children }) {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      minHeight: '100dvh',
       display: 'flex',
       background: 'var(--gray-50)',
       fontFamily: i18n.language === 'ar' ? "'Cairo', sans-serif" : "'Inter', sans-serif",
@@ -138,10 +138,10 @@ export function AuthLayout({ children }) {
       </div>
 
       {/* Right panel — form */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: isMobile ? 16 : 32 }}>
-        <div style={{ width: '100%', maxWidth: 420 }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'center', padding: isMobile ? '18px 14px' : 32, overflowY: 'auto' }}>
+        <div style={{ width: '100%', maxWidth: 420, paddingBottom: isMobile ? 18 : 0 }}>
           {/* Logo on mobile */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: isMobile ? 22 : 36 }}>
             <img
               src={appLogo}
               alt="SANAD logo"

@@ -11,8 +11,8 @@ const pageTitles = {
   '/profile': { ar: 'الملف الشخصي', fr: 'Profil' },
   '/admin': { ar: 'لوحة الإدارة', fr: 'Administration' },
   '/category/academic': { ar: 'الخدمات الأكاديمية', fr: 'Services académiques' },
-  '/category/stability': { ar: 'خدمات الاستقرار', fr: 'Services de stabilité' },
-  '/category/welfare': { ar: 'خدمات الرفاهية', fr: 'Services de bien-être' },
+  '/category/stability': { ar: 'خدمات الحياة اليومية و الاستقرار', fr: 'Services de stabilité' },
+  '/category/welfare': { ar: 'الخدمات الاجتماعية، الثقافية و الترفيهية', fr: 'Services de bien-être' },
 }
 
 export default function MainLayout() {

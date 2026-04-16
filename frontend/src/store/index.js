@@ -34,7 +34,7 @@ export const useUIStore = create((set) => ({
   notifications: [
     { id: 1, type: 'success', text_ar: 'تم قبول طلب السكن الخاص بك', text_fr: 'Votre demande de logement a été acceptée', time_ar: 'منذ ساعة', time_fr: 'Il y a 1h', read: false },
     { id: 2, type: 'warning', text_ar: 'موعد تسليم المذكرة: 3 أيام', text_fr: 'Délai de remise du mémoire : 3 jours', time_ar: 'منذ 3 ساعات', time_fr: 'Il y a 3h', read: false },
-    { id: 3, type: 'info', text_ar: 'خدمة جديدة متاحة في فئة الرفاهية', text_fr: 'Nouveau service disponible dans bien-être', time_ar: 'أمس', time_fr: 'Hier', read: true },
+    { id: 3, type: 'info', text_ar: 'خدمة جديدة متاحة ضمن الخدمات الاجتماعية، الثقافية و الترفيهية', text_fr: 'Nouveau service disponible dans les services sociaux, culturels et de loisirs', time_ar: 'أمس', time_fr: 'Hier', read: true },
   ],
   markRead: (id) => set((s) => ({
     notifications: s.notifications.map(n => n.id === id ? { ...n, read: true } : n)

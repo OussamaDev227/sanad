@@ -6,27 +6,27 @@ import { StatCard, SectionHeader } from '../components/ui/index.jsx'
 
 const MOCK_SERVICES = [
   { id: 1, icon: '📖', title: 'مراجع الفيزياء النظرية', category: 'academic', price: 'مجاني', status: 'new', status_label: 'جديد' },
-  { id: 2, icon: '🏠', title: 'غرفة مفروشة قرب الجامعة', category: 'stability', price: '8,000 د', status: 'active', status_label: 'متاح' },
-  { id: 3, icon: '🚌', title: 'حافلة جامعة — المدينة', category: 'welfare', price: '200 د', status: 'active', status_label: 'يومي' },
-  { id: 4, icon: '🖨️', title: 'خدمة طباعة وتجليد', category: 'academic', price: '150 د', status: 'pending', status_label: 'مؤقت' },
+  { id: 2, icon: '🏠', title: 'وساطة عقارية لسكن قريب من الجامعة', category: 'stability', price: '8,000 د', status: 'active', status_label: 'متاح' },
+  { id: 3, icon: '🚌', title: 'تنظيم رحلة سياحية للطلبة', category: 'welfare', price: '200 د', status: 'active', status_label: 'يومي' },
+  { id: 4, icon: '🖨️', title: 'رقمنة الوثائق الورقية', category: 'academic', price: '150 د', status: 'pending', status_label: 'مؤقت' },
 ]
 
 const CATEGORIES = [
   {
     key: 'academic', icon: '📚', slug: 'academic',
-    tags: ['مراجع ومذكرات', 'طباعة', 'تدقيق'],
+    tags: ['توفير مراجع', 'رقمنة الوثائق', 'التدقيق اللغوي'],
     color: 'var(--primary-50)', tagClass: 'badge-academic',
     gradient: 'linear-gradient(135deg, var(--primary-900), var(--primary-600))',
   },
   {
     key: 'stability', icon: '🏠', slug: 'stability',
-    tags: ['السكن', 'التجهيزات'],
+    tags: ['الوساطة العقارية', 'تجهيز السكن', 'نقل الأمتعة', 'حجز التذاكر'],
     color: 'var(--teal-50)', tagClass: 'badge-stability',
     gradient: 'linear-gradient(135deg, #0F6E56, #1D9E75)',
   },
   {
     key: 'welfare', icon: '🚌', slug: 'welfare',
-    tags: ['النقل', 'الرحلات'],
+    tags: ['رحلات سياحية', 'أمسيات ثقافية', 'ورشات', 'مسابقات'],
     color: 'var(--accent-50)', tagClass: 'badge-welfare',
     gradient: 'linear-gradient(135deg, var(--accent-600), var(--accent-400))',
   },
@@ -42,7 +42,7 @@ const QUICK_ACTIONS = [
 const NOTIFICATIONS = [
   { type: 'success', text: 'تم قبول طلب السكن الخاص بك', time: 'منذ ساعة' },
   { type: 'warning', text: 'موعد تسليم المذكرة: 3 أيام', time: 'منذ 3 ساعات' },
-  { type: 'info', text: 'خدمة جديدة متاحة في فئة الرفاهية', time: 'أمس' },
+  { type: 'info', text: 'خدمة جديدة متاحة ضمن الخدمات الاجتماعية، الثقافية و الترفيهية', time: 'أمس' },
 ]
 
 export default function DashboardPage() {

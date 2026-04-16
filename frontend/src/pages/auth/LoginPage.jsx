@@ -131,7 +131,7 @@ export function AuthLayout({ children }) {
           />
           <div style={{ color: '#fff', fontSize: 32, fontWeight: 800, marginBottom: 8 }}>SANAD</div>
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 15, marginBottom: 40 }}>منصة جامعي</div>
-          {['الخدمات الأكاديمية', 'خدمات الاستقرار', 'خدمات الرفاهية'].map((item, i) => (
+          {['الخدمات الأكاديمية', 'خدمات الحياة اليومية و الاستقرار', 'الخدمات الاجتماعية، الثقافية و الترفيهية'].map((item, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
               <span style={{ width: 20, height: 20, borderRadius: '50%', background: 'var(--accent-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: 'var(--accent-800)', fontWeight: 700 }}>✓</span>
               {item}

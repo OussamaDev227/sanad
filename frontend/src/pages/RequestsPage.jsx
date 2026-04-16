@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { EmptyState } from '../components/ui/index.jsx'
 
 const MOCK_REQUESTS = [
-  { id: 1, icon: '🏠', title: 'غرفة مفروشة شارع الجامعة', category: 'stability', status: 'accepted', date: '2025-11-01', price: '8,000 د' },
-  { id: 2, icon: '🖨️', title: 'طباعة مذكرة التخرج', category: 'academic', status: 'processing', date: '2025-11-03', price: '150 د' },
-  { id: 3, icon: '🚌', title: 'رحلة تيارت', category: 'welfare', status: 'new', date: '2025-11-05', price: '3,500 د' },
-  { id: 4, icon: '✍️', title: 'تدقيق لغوي فرنسي — الفصل الثالث', category: 'academic', status: 'completed', date: '2025-10-20', price: '500 د' },
+  { id: 1, icon: '🏠', title: 'وساطة عقارية لسكن قريب من الجامعة', category: 'stability', status: 'accepted', date: '2025-11-01', price: '8,000 د' },
+  { id: 2, icon: '🖨️', title: 'رقمنة وثائق مذكرة التخرج', category: 'academic', status: 'processing', date: '2025-11-03', price: '150 د' },
+  { id: 9, icon: '🚌', title: 'رحلة سياحية لطلبة الجامعة', category: 'welfare', status: 'new', date: '2025-11-05', price: '3,500 د' },
+  { id: 4, icon: '✍️', title: 'تدقيق لغوي — الفصل الثالث', category: 'academic', status: 'completed', date: '2025-10-20', price: '500 د' },
 ]
 
 const statusMap = {

@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/index.js'
 import { authAPI } from '../../services/api.js'
 import { setLanguage } from '../../i18n/index.js'
 import appLogo from '../../assets/WhatsApp Image 2026-04-12 at 11.11.44.jpeg'
 
+function getSafeRedirectPath(from) {
+  if (typeof from !== 'string' || !from.startsWith('/') || from.startsWith('//')) return '/dashboard'
+  if (from === '/login' || from === '/register') return '/dashboard'
+  return from
+}
+
 export default function LoginPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   const { setAuth } = useAuthStore()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
@@ -21,7 +28,7 @@ export default function LoginPage() {
     try {
       const res = await authAPI.login(form)
       setAuth(res.data.user, res.data.access, res.data.refresh)
-      navigate('/dashboard')
+      navigate(getSafeRedirectPath(location.state?.from))
     } catch (err) {
       // For demo/dev without backend, use mock login
       if (import.meta.env.DEV) {
@@ -31,7 +38,7 @@ export default function LoginPage() {
           language: 'ar',
         }
         setAuth(mockUser, 'mock_token_dev', 'mock_refresh_token_dev')
-        navigate('/dashboard')
+        navigate(getSafeRedirectPath(location.state?.from))
       } else {
         setError(err.response?.data?.detail || t('common.error'))
       }
@@ -89,7 +96,7 @@ export default function LoginPage() {
 
       <p style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: 'var(--gray-400)' }}>
         {t('auth.no_account')}{' '}
-        <Link to="/register" style={{ color: 'var(--primary-400)', fontWeight: 600, textDecoration: 'none' }}>
+        <Link to="/register" state={location.state} style={{ color: 'var(--primary-400)', fontWeight: 600, textDecoration: 'none' }}>
           {t('auth.register')}
         </Link>
       </p>

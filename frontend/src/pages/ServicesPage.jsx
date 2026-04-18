@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { categoriesAPI, servicesAPI } from '../services/api.js'
+import { useAuthStore } from '../store/index.js'
 import { ServiceCard, EmptyState, Spinner } from '../components/ui/index.jsx'
 
 export default function ServicesPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuthStore()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [services, setServices] = useState([])
   const [categories, setCategories] = useState([])
@@ -148,7 +150,13 @@ export default function ServicesPage() {
         <button
           className="btn-primary"
           style={{ fontSize: 12, padding: '7px 14px' }}
-          onClick={() => navigate('/services/new')}
+          onClick={() => {
+            if (!isAuthenticated) {
+              navigate('/login', { state: { from: '/services' } })
+              return
+            }
+            navigate('/services/new')
+          }}
         >+ {t('services.add_service')}</button>
       </div>
 

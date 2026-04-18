@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../../store/index.js'
 import { authAPI } from '../../services/api.js'
 import { AuthLayout } from './LoginPage.jsx'
 
+function getSafeRedirectPath(from) {
+  if (typeof from !== 'string' || !from.startsWith('/') || from.startsWith('//')) return '/dashboard'
+  if (from === '/login' || from === '/register') return '/dashboard'
+  return from
+}
+
 export default function RegisterPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   const { setAuth } = useAuthStore()
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm_password: '', role: 'student' })
   const [error, setError] = useState('')
@@ -31,12 +38,12 @@ export default function RegisterPage() {
     try {
       const res = await authAPI.register(form)
       setAuth(res.data.user, res.data.access, res.data.refresh)
-      navigate('/dashboard')
+      navigate(getSafeRedirectPath(location.state?.from))
     } catch (err) {
       if (import.meta.env.DEV) {
         const mockUser = { id: Date.now(), name: form.name, email: form.email, role: form.role, language: 'ar' }
         setAuth(mockUser, 'mock_token_dev', 'mock_refresh_token_dev')
-        navigate('/dashboard')
+        navigate(getSafeRedirectPath(location.state?.from))
       } else {
         setError(err.response?.data?.detail || t('common.error'))
       }
@@ -92,7 +99,7 @@ export default function RegisterPage() {
 
       <p style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: 'var(--gray-400)' }}>
         {t('auth.have_account')}{' '}
-        <Link to="/login" style={{ color: 'var(--primary-400)', fontWeight: 600, textDecoration: 'none' }}>
+        <Link to="/login" state={location.state} style={{ color: 'var(--primary-400)', fontWeight: 600, textDecoration: 'none' }}>
           {t('auth.login')}
         </Link>
       </p>

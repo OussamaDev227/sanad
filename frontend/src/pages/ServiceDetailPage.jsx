@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { requestsAPI } from '../services/api.js'
+import { useAuthStore } from '../store/index.js'
 
 const MOCK_SERVICES = {
   1: { id: 1, icon: '📖', title: 'مراجع الفيزياء النظرية', description: 'مجموعة شاملة من الكتب والملخصات لمادة الفيزياء النظرية. تشمل دروس السنة الثالثة ليسانس وماستر. جميع المراجع بصيغة PDF قابلة للتنزيل.', category: 'academic', price: 'مجاني', rating: '4.9', reviews: 42, provider: 'د. محمد بوعزيز', provider_role: 'أستاذ محاضر', phone: '+213 555 123 456', available: true },
@@ -17,6 +18,8 @@ export default function ServiceDetailPage() {
   const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
+  const { isAuthenticated } = useAuthStore()
   const [requested, setRequested] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -30,6 +33,10 @@ export default function ServiceDetailPage() {
   const cat = catColors[service.category]
 
   const handleRequest = async () => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: location.pathname } })
+      return
+    }
     setLoading(true)
     try {
       await requestsAPI.create({ service_id: service.id, notes: '' })

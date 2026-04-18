@@ -64,17 +64,38 @@ export default function LandingPage() {
           <button onClick={() => navigate('/login')} style={{ padding: '13px 32px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '0.5px solid rgba(255,255,255,0.2)', borderRadius: 10, fontSize: 15, cursor: 'pointer', fontFamily: 'inherit' }}>
             {t('auth.login')}
           </button>
+          <button
+            type="button"
+            onClick={() => navigate('/services')}
+            style={{ padding: '13px 28px', background: 'transparent', color: 'rgba(255,255,255,0.9)', border: '0.5px solid rgba(255,255,255,0.35)', borderRadius: 10, fontSize: 15, cursor: 'pointer', fontFamily: 'inherit' }}
+          >
+            {t('dashboard.explore_btn')}
+          </button>
         </div>
       </div>
 
       {/* Feature cards */}
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 16, maxWidth: 900, margin: '0 auto 60px', padding: isMobile ? '0 16px' : '0 40px' }}>
         {features.map(f => (
-          <div key={f.key} style={{ background: 'rgba(255,255,255,0.05)', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: 24 }}>
+          <button
+            key={f.key}
+            type="button"
+            onClick={() => navigate(`/category/${f.key}`)}
+            style={{
+              textAlign: 'inherit',
+              background: 'rgba(255,255,255,0.05)',
+              border: '0.5px solid rgba(255,255,255,0.1)',
+              borderRadius: 14,
+              padding: 24,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              color: 'inherit',
+            }}
+          >
             <div style={{ fontSize: 32, marginBottom: 12 }}>{f.icon}</div>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', marginBottom: 8 }}>{t(`categories.${f.key}.name`)}</div>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>{t(`categories.${f.key}.desc`)}</div>
-          </div>
+          </button>
         ))}
       </div>
 

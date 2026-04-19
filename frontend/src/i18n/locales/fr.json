@@ -161,6 +161,40 @@
   "notifications": {
     "title": "Notifications"
   },
+  "vitrine": {
+    "site_label": "Site vitrine",
+    "hero_kicker": "Projet universitaire — la plateforme est séparée",
+    "hero_title": "SANAD",
+    "hero_subtitle": "Plateforme universitaire",
+    "cta_platform": "Demander un service",
+    "nav_login": "Accéder à la plateforme",
+    "intro_title": "Qu’est-ce que SANAD ?",
+    "intro_body": "SANAD est un projet de plateforme universitaire visant à faciliter la vie des étudiants et des enseignants en regroupant des services académiques, des services liés à la stabilité et au quotidien, ainsi que des activités sociales, culturelles et de loisirs, au même endroit via une plateforme numérique accessible après création d’un compte.",
+    "services_title": "Domaines de services",
+    "services_note": "Ce site est uniquement présentatif ; pour demander un service, utilisez la plateforme.",
+    "cat_academic": "Services académiques",
+    "cat_stability": "Services du quotidien et de stabilité",
+    "cat_social": "Services sociaux, culturels et de loisirs",
+    "academic_items": [
+      "Mise à disposition de références",
+      "Numérisation de documents papier",
+      "Impression",
+      "Relecture / correction linguistique"
+    ],
+    "stability_items": [
+      "Intermédiation immobilière",
+      "Aménagement du logement",
+      "Aide au déménagement",
+      "Réservation de billets de transport"
+    ],
+    "social_items": [
+      "Organisation de voyages",
+      "Soirées culturelles",
+      "Ateliers",
+      "Concours avec récompenses"
+    ],
+    "footer": "SANAD — Plateforme universitaire"
+  },
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur est survenue",

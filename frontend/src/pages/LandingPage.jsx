@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { setLanguage } from '../i18n/index.js'
 import appLogo from '../assets/WhatsApp Image 2026-04-12 at 11.11.44.jpeg'
+import heroImage from '../assets/WhatsApp Image 2026-04-19 at 08.57.03.jpeg'
 
 function usePlatformUrl() {
   return useMemo(() => {
@@ -63,7 +64,7 @@ export default function LandingPage() {
   const [heroImgOk, setHeroImgOk] = useState(true)
   const [headerSolid, setHeaderSolid] = useState(false)
 
-  const heroImageSrc = import.meta.env.VITE_VITRINE_HERO_URL?.trim() || '/sanad-vitrine-hero.jpg'
+  const heroImageSrc = import.meta.env.VITE_VITRINE_HERO_URL?.trim() || heroImage
 
   const academicItems = t('vitrine.academic_items', { returnObjects: true })
   const stabilityItems = t('vitrine.stability_items', { returnObjects: true })
